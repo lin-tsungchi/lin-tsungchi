@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>後台管理｜林聰池議員</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #E8521A;
+      --orange-lt: #FFF0EA;
+      --ink: #1C1C1C;
+      --mid: #666;
+      --border: #E0D8D0;
+      --bg: #F7F4F0;
+      --white: #FFFFFF;
+      --danger: #D32F2F;
+      --sans: 'Noto Sans TC', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+    /* ── Login ── */
+    #login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .login-card {
+      background: var(--white); border-radius: 12px; padding: 2.5rem;
+      width: 100%; max-width: 380px;
+      box-shadow: 0 4px 32px rgba(0,0,0,.08);
+    }
+    .login-logo {
+      text-align: center; margin-bottom: 2rem;
+      font-size: 1.5rem; font-weight: 700; color: var(--ink);
+      letter-spacing: .05em;
+    }
+    .login-logo span { color: var(--orange); }
+    .login-label { display: block; font-size: .78rem; font-weight: 500; color: var(--mid); margin-bottom: .35rem; letter-spacing: .06em; }
+    .login-input {
+      width: 100%; padding: .7rem 1rem; border: 1.5px solid var(--border);
+      border-radius: 6px; font-family: var(--sans); font-size: .9rem;
+      color: var(--ink); margin-bottom: 1rem; outline: none;
+      transition: border-color .15s;
+    }
+    .login-input:focus { border-color: var(--orange); }
+    .login-btn {
+      width: 100%; padding: .8rem; background: var(--orange); color: #fff;
+      border: none; border-radius: 6px; font-family: var(--sans); font-size: .92rem;
+      font-weight: 500; cursor: pointer; transition: background .15s;
+    }
+    .login-btn:hover { background: #C8401A; }
+    .login-err {
+      background: #FFF0F0; color: var(--danger); border: 1px solid #F5C0C0;
+      border-radius: 6px; padding: .6rem .9rem; font-size: .82rem;
+      margin-top: .8rem; display: none;
+    }
+    .login-err.show { display: block; }
+
+    /* ── Dashboard ── */
+    #dashboard { display: none; min-height: 100vh; }
+    .dash-nav {
+      background: var(--white); border-bottom: 2px solid var(--orange);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; height: 54px; position: sticky; top: 0; z-index: 10;
+    }
+    .dash-brand { font-weight: 700; font-size: 1rem; letter-spacing: .06em; }
+    .dash-brand span { color: var(--orange); }
+    .logout-btn {
+      background: transparent; border: 1.5px solid var(--border);
+      border-radius: 5px; padding: .38rem .9rem; font-family: var(--sans);
+      font-size: .78rem; color: var(--mid); cursor: pointer; transition: all .15s;
+    }
+    .logout-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+    .dash-body { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+    /* ── Section card ── */
+    .card {
+      background: var(--white); border-radius: 10px; padding: 1.8rem;
+      margin-bottom: 1.5rem; border: 1px solid var(--border);
+    }
+    .card-title {
+      font-size: 1rem; font-weight: 700; color: var(--ink);
+      border-left: 4px solid var(--orange); padding-left: .75rem;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ── Form elements ── */
+    .form-row { margin-bottom: 1rem; }
+    label { display: block; font-size: .75rem; font-weight: 500; color: var(--mid); margin-bottom: .3rem; letter-spacing: .06em; }
+    input[type="text"], input[type="url"], input[type="password"], textarea {
+      width: 100%; padding: .62rem .9rem; border: 1.5px solid var(--border);
+      border-radius: 6px; font-family: var(--sans); font-size: .87rem;
+      color: var(--ink); outline: none; transition: border-color .15s;
+      background: var(--white);
+    }
+    input:focus, textarea:focus { border-color: var(--orange); }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+    /* ── Buttons ── */
+    .btn-save {
+      background: var(--orange); color: #fff; border: none;
+      border-radius: 6px; padding: .65rem 1.5rem; font-family: var(--sans);
+      font-size: .88rem; font-weight: 500; cursor: pointer; transition: background .14s;
+    }
+    .btn-save:hover { background: #C8401A; }
+    .btn-add {
+      background: var(--orange-lt); color: var(--orange); border: 1.5px solid var(--orange);
+      border-radius: 6px; padding: .5rem 1.1rem; font-family: var(--sans);
+      font-size: .82rem; font-weight: 500; cursor: pointer; transition: all .14s;
+    }
+    .btn-add:hover { background: var(--orange); color: #fff; }
+    .btn-del {
+      background: transparent; color: var(--danger); border: 1px solid #F5C0C0;
+      border-radius: 5px; padding: .3rem .7rem; font-size: .75rem;
+      cursor: pointer; transition: all .14s; font-family: var(--sans);
+    }
+    .btn-del:hover { background: #FFF0F0; }
+    .btn-row { display: flex; gap: .75rem; align-items: center; margin-top: 1rem; flex-wrap: wrap; }
+
+    /* ── News item editor ── */
+    .news-item-editor {
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.1rem; margin-bottom: .8rem; background: var(--bg);
+    }
+    .news-item-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: .8rem;
+    }
+    .news-item-num { font-size: .72rem; font-weight: 700; color: var(--orange); letter-spacing: .08em; }
+    .news-grid { display: grid; grid-template-columns: 1fr 2fr 3fr; gap: .7rem; }
+    @media (max-width: 620px) { .news-grid { grid-template-columns: 1fr; } }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #1D6B3A; color: #fff; padding: .7rem 1.6rem;
+      border-radius: 8px; font-size: .87rem; font-weight: 500;
+      transition: transform .3s; z-index: 999; white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── Change password ── */
+    .pw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+    @media (max-width: 520px) { .pw-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- ── Login Screen ── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">林<span>聰池</span>議員｜後台</div>
+    <label class="login-label">帳號</label>
+    <input class="login-input" id="l-user" type="text" placeholder="admin" autocomplete="username"/>
+    <label class="login-label">密碼</label>
+    <input class="login-input" id="l-pass" type="password" placeholder="請輸入密碼" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">登入後台</button>
+    <div class="login-err" id="login-err">帳號或密碼錯誤，請重試。</div>
+    <p style="margin-top:1.2rem;font-size:.72rem;color:#aaa;text-align:center;">預設帳號 admin ／密碼 admin123</p>
+  </div>
+</div>
+
+<!-- ── Dashboard ── -->
+<div id="dashboard">
+  <nav class="dash-nav">
+    <div class="dash-brand">林<span>聰池</span>議員 — 後台管理</div>
+    <button class="logout-btn" onclick="doLogout()">登出</button>
+  </nav>
+
+  <div class="dash-body">
+
+    <!-- Hero 文字 -->
+    <div class="card">
+      <div class="card-title">首頁 Hero 文字</div>
+      <div class="form-row">
+        <label>標語副標（副標題，顯示在名字下方）</label>
+        <textarea id="f-subtitle" rows="3"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveHero()">儲存 Hero 文字</button>
+      </div>
+    </div>
+
+    <!-- 統計數字 -->
+    <div class="card">
+      <div class="card-title">頂部統計數字</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <div class="form-row">
+          <label>數字 1</label>
+          <input type="text" id="s1-num" placeholder="最高票"/>
+        </div>
+        <div class="form-row">
+          <label>說明 1</label>
+          <input type="text" id="s1-lbl" placeholder="2022年當選"/>
+        </div>
+        <div class="form-row">
+          <label>數字 2</label>
+          <input type="text" id="s2-num" placeholder="2,500萬"/>
+        </div>
+        <div class="form-row">
+          <label>說明 2</label>
+          <input type="text" id="s2-lbl" placeholder="爭取排水建設經費"/>
+        </div>
+        <div class="form-row">
+          <label>數字 3</label>
+          <input type="text" id="s3-num" placeholder="200+件"/>
+        </div>
+        <div class="form-row">
+          <label>說明 3</label>
+          <input type="text" id="s3-lbl" placeholder="救護站出勤救援"/>
+        </div>
+        <div class="form-row">
+          <label>數字 4</label>
+          <input type="text" id="s4-num" placeholder="4年"/>
+        </div>
+        <div class="form-row">
+          <label>說明 4</label>
+          <input type="text" id="s4-lbl" placeholder="無黨籍獨立問政"/>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveStats()">儲存統計數字</button>
+      </div>
+    </div>
+
+    <!-- 新聞連結 -->
+    <div class="card">
+      <div class="card-title">媒體報導連結管理</div>
+      <div id="news-editor-list"></div>
+      <div class="btn-row">
+        <button class="btn-add" onclick="addNewsItem()">＋ 新增一則報導</button>
+        <button class="btn-save" onclick="saveNews()">儲存所有報導</button>
+      </div>
+    </div>
+
+    <!-- 支持區塊文字 -->
+    <div class="card">
+      <div class="card-title">支持區塊說明文字</div>
+      <div class="form-row">
+        <label>支持說明文字</label>
+        <textarea id="f-support-desc" rows="4"></textarea>
+      </div>
+      <div class="form-row">
+        <label>捐款連結（綠界頁面網址）</label>
+        <input type="url" id="f-donate-url" placeholder="https://payment.ecpay.com.tw/..."/>
+      </div>
+      <div class="form-row">
+        <label>Facebook 粉專連結</label>
+        <input type="url" id="f-fb-url" placeholder="https://www.facebook.com/..."/>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="saveSupport()">儲存支持區塊</button>
+      </div>
+    </div>
+
+    <!-- 修改密碼 -->
+    <div class="card">
+      <div class="card-title">修改登入密碼</div>
+      <div class="pw-grid">
+        <div class="form-row">
+          <label>新密碼</label>
+          <input type="password" id="new-pw" autocomplete="new-password" placeholder="請輸入新密碼"/>
+        </div>
+        <div class="form-row">
+          <label>確認新密碼</label>
+          <input type="password" id="new-pw2" autocomplete="new-password" placeholder="再輸入一次"/>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-save" onclick="changePw()">更新密碼</button>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:.72rem;color:#bbb;margin-top:1rem;">
+      前台網站：<a href="index.html" target="_blank" style="color:var(--orange)">index.html</a>（在同一資料夾中開啟）
+    </p>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'lcp_cms';
+const SESS = 'lcp_sess';
+
+// ── helpers ──
+function getData() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { return {}; }
+}
+function setData(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+function showToast(msg, ok = true) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = ok ? '#1D6B3A' : '#D32F2F';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// ── default content ──
+const DEFAULTS = {
+  subtitle: '無黨籍素人，以全選區最高票打破派系壟斷。\n四年來，不靠政黨、不靠財團，\n一件一件為礁溪鄉親做出改變。',
+  stats: [
+    { num: '2022', lbl: '最高票當選' },
+    { num: '4年',  lbl: '無黨籍問政' },
+    { num: '200+', lbl: '救護站出勤件' },
+    { num: '2,500萬', lbl: '爭取排水建設' }
+  ],
+  news: [
+    { src: '聯合新聞網', title: '宜蘭五峰旗風景區大升級 4,200萬元改善步道建泡腳池（林聰池辦理現場會勘）', url: 'https://udn.com/news/story/7328/8973314' },
+    { src: '公視新聞', title: '宜蘭五峰旗風景區設施舊 縣府爭取2億經費活化（林聰池：把五峰旗打造成蘭陽明珠）', url: 'https://news.pts.org.tw/article/665438' },
+    { src: '聯合新聞網', title: '爭取2年多終於突破困境！礁溪共融式遊戲公園定案 力拚今年動工', url: 'https://udn.com/news/story/7328/9316308' },
+    { src: '聯合新聞網', title: '宜蘭議員為礁溪四城救護站爆口角 林聰池嗆：誰敢遷救護站走著瞧', url: 'https://udn.com/news/story/7328/8406629' },
+    { src: '自由時報', title: '宜蘭425處狹小巷道擬設滅火器 消防局盼獲議會支持（全台首創，林聰池推動）', url: 'https://news.ltn.com.tw/news/Yilan/breakingnews/5426239' },
+    { src: '自由時報', title: '議員促狹小巷弄設公共滅火器 宜縣府允研議方案（林聰池：全台都沒做過，宜蘭先行）', url: 'https://news.ltn.com.tw/news/politics/breakingnews/5235248' },
+    { src: '宜蘭大新聞', title: '林聰池積極與縣府協調評估 礁溪、三民國小附設幼兒園將增班！', url: 'https://www.bignews.tw/%E8%AD%B0%E5%93%A1%E6%9E%97%E8%81%B0%E6%B1%A0%E7%A9%8D%E6%A5%B5%E8%88%87%E7%B8%A3%E5%BA%9C%E6%95%99%E8%82%B2%E8%99%95%E5%92%8C%E5%9C%B0%E6%96%B9%E5%AD%B8%E6%A0%A1%E5%8D%94%E8%AA%BF%E8%A9%95%E4%BC%B0-111343.html' },
+    { src: '宜蘭大新聞', title: '強化排水設施安全 林聰池議員爭取近2,500萬改善地方基礎建設', url: 'https://www.bignews.tw/%E5%BC%B7%E5%8C%96%E6%8E%92%E6%B0%B4%E8%A8%AD%E6%96%BD%E5%AE%89%E5%85%A8-%E6%9E%97%E8%81%B0%E6%B1%A0%E8%AD%B0%E5%93%A1%E7%88%AD%E5%8F%96%E8%BF%992500%E8%90%AC%E6%94%B9%E5%96%84%E5%9C%B0%E6%96%B9-116724.html' },
+  ],
+  supportDesc: '四年來，林聰池以無黨籍身份獨立問政，不靠派系、不靠財團，每一分努力都來自礁溪鄉親的信任與支持。若你認同這樣的改革精神，請用行動支持他繼續走下去。',
+  donateUrl: 'https://payment.ecpay.com.tw',
+  fbUrl: 'https://www.facebook.com/tsungchih2025/',
+  adminUser: 'admin',
+  adminPass: 'admin123'
+};
+
+// ── auth ──
+function doLogin() {
+  const d = getData();
+  const u = document.getElementById('l-user').value.trim();
+  const p = document.getElementById('l-pass').value;
+  const expectedUser = d.adminUser || DEFAULTS.adminUser;
+  const expectedPass = d.adminPass || DEFAULTS.adminPass;
+  if (u === expectedUser && p === expectedPass) {
+    sessionStorage.setItem(SESS, '1');
+    document.getElementById('login-err').classList.remove('show');
+    showDashboard();
+  } else {
+    document.getElementById('login-err').classList.add('show');
+  }
+}
+function doLogout() {
+  sessionStorage.removeItem(SESS);
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('l-pass').value = '';
+}
+function checkSession() {
+  if (sessionStorage.getItem(SESS) === '1') showDashboard();
+}
+
+// ── dashboard load ──
+function showDashboard() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  loadAll();
+}
+function loadAll() {
+  const d = getData();
+  // hero
+  document.getElementById('f-subtitle').value = d.subtitle || DEFAULTS.subtitle;
+  // stats
+  const stats = d.stats || DEFAULTS.stats;
+  ['1','2','3','4'].forEach((n,i) => {
+    document.getElementById('s'+n+'-num').value = stats[i]?.num || '';
+    document.getElementById('s'+n+'-lbl').value = stats[i]?.lbl || '';
+  });
+  // news
+  renderNewsEditor(d.news || DEFAULTS.news);
+  // support
+  document.getElementById('f-support-desc').value = d.supportDesc || DEFAULTS.supportDesc;
+  document.getElementById('f-donate-url').value = d.donateUrl || DEFAULTS.donateUrl;
+  document.getElementById('f-fb-url').value = d.fbUrl || DEFAULTS.fbUrl;
+}
+
+// ── news editor ──
+let newsItems = [];
+function renderNewsEditor(items) {
+  newsItems = items.map(i => ({...i}));
+  redrawNews();
+}
+function redrawNews() {
+  const container = document.getElementById('news-editor-list');
+  container.innerHTML = '';
+  newsItems.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'news-item-editor';
+    div.innerHTML = `
+      <div class="news-item-header">
+        <span class="news-item-num">報導 #${idx+1}</span>
+        <button class="btn-del" onclick="removeNews(${idx})">✕ 刪除</button>
+      </div>
+      <div class="news-grid">
+        <div class="form-row">
+          <label>媒體來源</label>
+          <input type="text" value="${escHtml(item.src)}" oninput="newsItems[${idx}].src=this.value" placeholder="例：聯合新聞網"/>
+        </div>
+        <div class="form-row">
+          <label>新聞連結（URL）</label>
+          <input type="url" value="${escHtml(item.url)}" oninput="newsItems[${idx}].url=this.value" placeholder="https://..."/>
+        </div>
+        <div class="form-row">
+          <label>新聞標題（顯示文字）</label>
+          <input type="text" value="${escHtml(item.title)}" oninput="newsItems[${idx}].title=this.value" placeholder="新聞標題..."/>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+function addNewsItem() {
+  newsItems.push({ src: '', url: '', title: '' });
+  redrawNews();
+  document.getElementById('news-editor-list').lastChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function removeNews(idx) {
+  if (!confirm('確定要刪除這則報導？')) return;
+  newsItems.splice(idx, 1);
+  redrawNews();
+}
+
+// ── saves ──
+function saveHero() {
+  const d = getData();
+  d.subtitle = document.getElementById('f-subtitle').value;
+  setData(d); showToast('✓ Hero 文字已儲存');
+}
+function saveStats() {
+  const d = getData();
+  d.stats = ['1','2','3','4'].map(n => ({
+    num: document.getElementById('s'+n+'-num').value,
+    lbl: document.getElementById('s'+n+'-lbl').value
+  }));
+  setData(d); showToast('✓ 統計數字已儲存');
+}
+function saveNews() {
+  const d = getData();
+  d.news = newsItems.map(i => ({...i}));
+  setData(d); showToast('✓ 報導連結已儲存');
+}
+function saveSupport() {
+  const d = getData();
+  d.supportDesc = document.getElementById('f-support-desc').value;
+  d.donateUrl = document.getElementById('f-donate-url').value;
+  d.fbUrl = document.getElementById('f-fb-url').value;
+  setData(d); showToast('✓ 支持區塊已儲存');
+}
+function changePw() {
+  const np = document.getElementById('new-pw').value;
+  const np2 = document.getElementById('new-pw2').value;
+  if (!np) { showToast('請輸入新密碼', false); return; }
+  if (np !== np2) { showToast('兩次密碼不一致', false); return; }
+  if (np.length < 6) { showToast('密碼至少需要 6 個字元', false); return; }
+  const d = getData();
+  d.adminPass = np;
+  setData(d);
+  document.getElementById('new-pw').value = '';
+  document.getElementById('new-pw2').value = '';
+  showToast('✓ 密碼已更新，下次登入請用新密碼');
+}
+
+function escHtml(str = '') {
+  return str.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+checkSession();
+</script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>林聰池｜宜蘭縣第20屆議員・礁溪</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange:   #E8521A;
+      --orange-lt:#FFF0EA;
+      --orange-md:#F4784A;
+      --ink:      #1C1C1C;
+      --mid:      #555;
+      --rule:     #E8E0D8;
+      --bg:       #FFFFFF;
+      --serif: 'Noto Serif TC', serif;
+      --sans:  'Noto Sans TC', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); overflow-x: hidden; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: #fff;
+      border-bottom: 2px solid var(--orange);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw; height: 54px;
+    }
+    .nav-brand {
+      font-family: var(--serif); font-size: 1.05rem; font-weight: 900;
+      color: var(--ink); letter-spacing: .08em;
+    }
+    .nav-brand span { color: var(--orange); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      color: var(--mid); text-decoration: none; font-size: .82rem;
+      letter-spacing: .06em; font-weight: 500;
+      transition: color .18s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 130px 6vw 90px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: .75rem; letter-spacing: .2em; color: var(--orange);
+      text-transform: uppercase; font-weight: 700; margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 11vw, 9rem);
+      font-weight: 900; color: var(--ink); line-height: .9;
+      letter-spacing: -.03em;
+    }
+    .hero-name-underline {
+      display: block; height: 7px; background: var(--orange);
+      width: 55%; margin-top: .35rem; border-radius: 4px;
+    }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: clamp(.95rem, 2vw, 1.15rem);
+      color: var(--mid); line-height: 1.8;
+      max-width: 480px; font-weight: 300;
+    }
+    .hero-sub strong { color: var(--orange); font-weight: 700; }
+    .hero-ctas { margin-top: 2.2rem; display: flex; gap: .9rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .72rem 1.6rem; border-radius: 3px;
+      font-size: .88rem; font-weight: 500; text-decoration: none;
+      letter-spacing: .04em; transition: transform .14s, box-shadow .14s;
+      border: none; cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,82,26,.25); }
+    .btn-primary { background: var(--orange); color: #fff; }
+    .btn-outline {
+      background: transparent; color: var(--orange);
+      border: 1.5px solid var(--orange);
+    }
+    .btn-outline:hover { background: var(--orange-lt); box-shadow: none; }
+
+    /* badge panel */
+    .hero-badge {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .badge-card {
+      background: var(--orange); color: #fff;
+      border-radius: 8px; padding: 1.2rem 1.8rem;
+      text-align: center; min-width: 140px;
+    }
+    .badge-num {
+      font-family: var(--serif); font-size: 2rem; font-weight: 900; line-height: 1;
+    }
+    .badge-lbl { font-size: .7rem; letter-spacing: .1em; opacity: .85; margin-top: .25rem; }
+
+    /* ── Stats strip ── */
+    .stats-strip {
+      background: var(--orange-lt);
+      border-top: 3px solid var(--orange);
+      display: flex; flex-wrap: wrap;
+    }
+    .stat-item {
+      flex: 1; min-width: 160px; padding: 1.5rem 2rem;
+      border-right: 1px solid rgba(232,82,26,.2);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--serif); font-size: 2rem; font-weight: 900;
+      color: var(--orange);
+    }
+    .stat-lbl { font-size: .73rem; color: var(--mid); letter-spacing: .08em; margin-top: .2rem; }
+
+    /* ── Shared section ── */
+    section { padding: 5.5rem 6vw; }
+    .sec-eyebrow {
+      font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+      font-weight: 700; color: var(--orange); margin-bottom: .7rem;
+    }
+    .sec-title {
+      font-family: var(--serif); font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+      font-weight: 700; color: var(--ink); line-height: 1.25; max-width: 560px;
+    }
+    .sec-rule {
+      width: 36px; height: 3px; background: var(--orange);
+      border-radius: 2px; margin: 1rem 0 2.6rem;
+    }
+
+    /* ── Achievements ── */
+    #achievements { background: #fff; }
+    .ach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.2rem;
+    }
+    .ach-card {
+      border: 1.5px solid var(--rule); border-radius: 6px;
+      padding: 1.8rem; background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .ach-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 4px 20px rgba(232,82,26,.1);
+    }
+    .ach-icon { font-size: 1.8rem; margin-bottom: .9rem; }
+    .ach-card h3 {
+      font-family: var(--serif); font-size: 1.08rem; font-weight: 700;
+      color: var(--ink); line-height: 1.5; margin-bottom: .6rem;
+    }
+    .ach-card p { font-size: .85rem; color: var(--mid); line-height: 1.75; }
+    .ach-tag {
+      display: inline-block; margin-top: .8rem;
+      background: var(--orange-lt); color: var(--orange);
+      font-size: .68rem; font-weight: 700; letter-spacing: .08em;
+      padding: .18rem .65rem; border-radius: 20px;
+    }
+
+    /* ── News ── */
+    #news { background: var(--orange-lt); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .news-table { width: 100%; border-collapse: collapse; margin-top: 0; }
+    .news-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 24px;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.15rem 0;
+      border-bottom: 1px solid rgba(232,82,26,.15);
+      text-decoration: none;
+      color: inherit;
+      transition: background .12s;
+    }
+    .news-row:last-child { border-bottom: none; }
+    .news-row:hover { background: rgba(232,82,26,.05); padding-left: .6rem; margin-left: -.6rem; }
+    .news-src {
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+      color: var(--orange); text-transform: uppercase;
+    }
+    .news-ttl { font-size: .92rem; color: var(--ink); line-height: 1.55; }
+    .news-row:hover .news-ttl { color: var(--orange); }
+    .news-arr { color: var(--orange); font-size: 1rem; font-weight: 700; }
+
+    /* ── Support ── */
+    #support { background: #fff; text-align: center; }
+    #support .sec-title { max-width: 100%; margin: 0 auto; }
+    #support .sec-rule { margin-left: auto; margin-right: auto; }
+    .support-desc {
+      max-width: 520px; margin: 0 auto 2.5rem;
+      color: var(--mid); font-size: .92rem; line-height: 1.85;
+    }
+    .support-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-fb { background: #1877F2; color: #fff; }
+    .btn-fb:hover { background: #0c61d1; }
+    .btn-donate {
+      background: var(--orange); color: #fff;
+      font-size: .95rem; padding: .88rem 2rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,.4);
+      text-align: center; padding: 2rem; font-size: .75rem; letter-spacing: .05em;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+
+    /* ── Mobile ── */
+    @media (max-width: 700px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-badge { flex-direction: row; flex-wrap: wrap; }
+      .badge-card { min-width: 110px; }
+      nav .nav-links { display: none; }
+      .news-row { grid-template-columns: 70px 1fr 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-brand">林<span>聰池</span>議員</div>
+  <ul class="nav-links">
+    <li><a href="#achievements">政績</a></li>
+    <li><a href="#news">媒體報導</a></li>
+    <li><a href="#support">支持我們</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div>
+    <p class="hero-eyebrow">宜蘭縣第20屆議員・礁溪第三選舉區・無黨籍</p>
+    <h1 class="hero-name">林聰池<span class="hero-name-underline"></span></h1>
+    <p class="hero-sub">
+      素人從政，以<strong>全選區最高票</strong>打破派系壟斷。<br>
+      四年來，不靠政黨、不靠財團，<br>一件一件為礁溪鄉親做出改變。
+    </p>
+    <div class="hero-ctas">
+      <a href="#achievements" class="btn btn-primary">查看四年政績 →</a>
+      <a href="#support" class="btn btn-outline">支持林聰池</a>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <div class="badge-card">
+      <div class="badge-num">2022</div>
+      <div class="badge-lbl">最高票當選</div>
+    </div>
+    <div class="badge-card">
+      <div class="badge-num">4年</div>
+      <div class="badge-lbl">無黨籍問政</div>
+    </div>
+    <div class="badge-card">
+      <div class="badge-num">200+</div>
+      <div class="badge-lbl">救護站出勤件</div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats strip -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="stat-num">2,500萬</div>
+    <div class="stat-lbl">爭取排水建設經費</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2億</div>
+    <div class="stat-lbl">五峰旗升級計畫</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">425處</div>
+    <div class="stat-lbl">全縣狹小巷道設滅火器</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">24位</div>
+    <div class="stat-lbl">幼幼班增班名額</div>
+  </div>
+</div>
+
+<!-- Achievements -->
+<section id="achievements">
+  <p class="sec-eyebrow">四年政績</p>
+  <h2 class="sec-title">礁溪的改變，<br>一件一件做出來</h2>
+  <div class="sec-rule"></div>
+  <div class="ach-grid">
+
+    <div class="ach-card">
+      <div class="ach-icon">🏔️</div>
+      <h3>五峰旗風景區整體提升計畫</h3>
+      <p>推動五峰旗風景特定區整體升級，爭取2億元分期工程，包含步道優化、泡腳池、親水區、市集廣場改造，讓礁溪觀光門戶重現風華，並親自參與現場會勘監督進度。</p>
+      <span class="ach-tag">觀光建設</span>
+    </div>
+
+    <div class="ach-card">
+      <div class="ach-icon">🛝</div>
+      <h3>爭取礁溪首座共融式遊戲公園</h3>
+      <p>「礁溪不缺高樓，缺少讓孩子安心玩耍的空間。」林聰池自2023年起積極推動，歷經2年多爭取土地與預算，終於在2026年確定在重劃區動工，打造全齡友善的共融遊戲場。</p>
+      <span class="ach-tag">親子環境</span>
+    </div>
+
+    <div class="ach-card">
+      <div class="ach-icon">🚑</div>
+      <h3>爭取四城派出所設救護站</h3>
+      <p>礁溪南北距離遠，假日塞車常延誤救援。林聰池爭取在四城派出所增設救護據點，服務約16,000名居民，至今出勤救護逾200件，守護礁溪南側民眾生命安全。</p>
+      <span class="ach-tag">消防救護</span>
+    </div>
+
+    <div class="ach-card">
+      <div class="ach-icon">🚿</div>
+      <h3>推動礁溪水資源回收中心建設</h3>
+      <p>持續在議會推動礁溪地區污水下水道系統與水資源回收設施完善，改善在地環境衛生，確保礁溪的水資源永續利用，為觀光與居民生活品質把關。</p>
+      <span class="ach-tag">環境建設</span>
+    </div>
+
+    <div class="ach-card">
+      <div class="ach-icon">🧯</div>
+      <h3>全宜蘭縣狹小巷道設置公共滅火器</h3>
+      <p>因礁溪曾發生窄巷火災奪命憾事，林聰池要求縣府盤點全縣425處狹小巷道，推動設置公共滅火器，為全台首創，讓居民第一時間就能壓制火勢，大幅降低傷亡風險。</p>
+      <span class="ach-tag">防災安全</span>
+    </div>
+
+    <div class="ach-card">
+      <div class="ach-icon">🧒</div>
+      <h3>爭取礁溪、三民國小附幼增班</h3>
+      <p>針對礁溪雙薪家庭育兒壓力，多次向縣府爭取評估幼幼班增班可行性，最終在礁溪國小增加1班（16人）、三民國小增加半班（8人），共24名名額，5月報名、9月開課。</p>
+      <span class="ach-tag">幼兒教育</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- News -->
+<section id="news">
+  <p class="sec-eyebrow">媒體報導</p>
+  <h2 class="sec-title">新聞這樣報導他</h2>
+  <div class="sec-rule"></div>
+
+  <a class="news-row" href="https://udn.com/news/story/7328/8973314" target="_blank" rel="noopener">
+    <span class="news-src">聯合新聞網</span>
+    <span class="news-ttl">宜蘭五峰旗風景區大升級 4,200萬元改善步道建泡腳池（林聰池辦理現場會勘）</span>
+    <span class="news-arr">→</span>
+  </a>
+
+  <a class="news-row" href="https://news.pts.org.tw/article/665438" target="_blank" rel="noopener">
+    <span class="news-src">公視新聞</span>
+    <span class="news-ttl">宜蘭五峰旗風景區設施舊 縣府爭取2億經費活化（林聰池：把五峰旗打造成蘭陽明珠）</span>
+    <span class="news-arr">→</span>
+  </a>
+
+  <a class="news-row" href="https://udn.com/news/story/7328/9316308" target="_blank" rel="noopener">
+    <span class="news-src">聯合新聞網</span>
+    <span class="news-ttl">爭取2年多終於突破困境！礁溪共融式遊戲公園定案 力拚今年動工</span>
+    <span class="news-arr">→</span>
+  </a>
+
+  <a class="news-row" href="https://udn.com/news/story/7328/8406629" target="_blank" rel="noopener">
+    <span class="news-src">聯合新聞網</span>
+    <span class="news-ttl">宜蘭議員為礁溪四城救護站爆口角 林聰池嗆：誰敢遷救護站走著瞧</span>
+    <span class="news-arr">→</span>
+  </a>
+
+  <a class="news-row" href="https://news.ltn.com.tw/news/Yilan/breakingnews/5426239" target="_blank" rel="noopener">
+    <span class="news-src">自由時報</span>
+    <span class="news-ttl">宜蘭425處狹小巷道擬設滅火器 消防局盼獲議會支持（全台首創，林聰池推動）</span>
+    <span class="news-arr">→</span>
+  </a>
+
+  <a class="news-row" href="https://news.ltn.com.tw/news/politics/breakingnews/5235248" target="_blank" rel="noopener">
+    <span class="news-src">自由時報</span>
+    <span class="news-ttl">議員促狹小巷弄設公共滅火器 宜縣府允研議方案（林聰池：全台都沒做過，宜蘭先行）</span>
+    <span class="news-arr">→</span>
+  </a>
+
+  <a class="news-row" href="https://www.bignews.tw/%E8%AD%B0%E5%93%A1%E6%9E%97%E8%81%B0%E6%B1%A0%E7%A9%8D%E6%A5%B5%E8%88%87%E7%B8%A3%E5%BA%9C%E6%95%99%E8%82%B2%E8%99%95%E5%92%8C%E5%9C%B0%E6%96%B9%E5%AD%B8%E6%A0%A1%E5%8D%94%E8%AA%BF%E8%A9%95%E4%BC%B0-111343.html" target="_blank" rel="noopener">
+    <span class="news-src">宜蘭大新聞</span>
+    <span class="news-ttl">林聰池積極與縣府協調評估 礁溪、三民國小附設幼兒園將增班！</span>
+    <span class="news-arr">→</span>
+  </a>
+
+  <a class="news-row" href="https://www.scooptwnews.com/uncategorized/67597/" target="_blank" rel="noopener">
+    <span class="news-src">獨家日報</span>
+    <span class="news-ttl">助雙薪家庭減輕壓力 林聰池爭取礁溪、三民國小附設幼兒園增班</span>
+    <span class="news-arr">→</span>
+  </a>
+
+  <a class="news-row" href="https://www.bignews.tw/%E5%BC%B7%E5%8C%96%E6%8E%92%E6%B0%B4%E8%A8%AD%E6%96%BD%E5%AE%89%E5%85%A8-%E6%9E%97%E8%81%B0%E6%B1%A0%E8%AD%B0%E5%93%A1%E7%88%AD%E5%8F%96%E8%BF%992500%E8%90%AC%E6%94%B9%E5%96%84%E5%9C%B0%E6%96%B9-116724.html" target="_blank" rel="noopener">
+    <span class="news-src">宜蘭大新聞</span>
+    <span class="news-ttl">強化排水設施安全 林聰池議員爭取近2,500萬改善地方基礎建設</span>
+    <span class="news-arr">→</span>
+  </a>
+
+</section>
+
+<!-- Support -->
+<section id="support">
+  <p class="sec-eyebrow">支持我們</p>
+  <h2 class="sec-title">讓改變繼續，<br>礁溪需要你</h2>
+  <div class="sec-rule"></div>
+  <p class="support-desc">
+    四年來，林聰池以無黨籍身份獨立問政，不靠派系、不靠財團，每一分努力都來自礁溪鄉親的信任與支持。若你認同這樣的改革精神，請用行動支持他繼續走下去。
+  </p>
+  <div class="support-btns">
+    <a href="https://www.facebook.com/tsungchih2025/" target="_blank" rel="noopener" class="btn btn-fb">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+      追蹤粉絲專頁
+    </a>
+    <a href="https://payment.ecpay.com.tw" target="_blank" rel="noopener" class="btn btn-donate">
+      💛 捐款支持林聰池
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 林聰池議員服務處・宜蘭縣礁溪鄉・粉絲專頁：<a href="https://www.facebook.com/tsungchih2025/" target="_blank" rel="noopener">facebook.com/tsungchih2025</a></p>
+  <p style="margin-top:.5rem;">本網站由支持者自主架設，不代表任何政黨立場。</p>
+</footer>
+
+</body>
+</html>
